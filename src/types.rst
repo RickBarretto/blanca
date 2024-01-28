@@ -13,6 +13,7 @@ Arturo Types            Python Types
 :word                   str
 :label                  "key"
 :string (simple)        str
+:char                   str
 ============            ============
                 
                 TODO
@@ -33,7 +34,6 @@ Arturo Types            Python Types
 :complex                ...
 :rational               tuple[int, int]
 :type                   str
-:char                   str
 :regex                  str
 :inline                 list
 :date                   ...
