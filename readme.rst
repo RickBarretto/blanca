@@ -14,6 +14,7 @@ Convertion Table
     :string (simple)        str             
         :char               str         chars in Python are intepreted as ``str``
        :integer             int
+      :floating             float       'd.' is an ``:integer``
         :block              list        can't assign values
      :dictionary            dict        gets pairs of kind (:label :any)
 ======================= =============== ====================================================
@@ -26,7 +27,6 @@ Convertion Table
 Arturo Types            Python Types
 ======================= ============
 :literal                str
-:floating               float
 :logical                bool
 :null                   None
 :color                  str
