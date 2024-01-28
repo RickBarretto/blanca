@@ -1,4 +1,4 @@
-from typing import Callable, Iterator
+from typing import Any, Callable, Iterator
 
 from src.classifier import token as tk
 
@@ -24,6 +24,21 @@ def parse_block(it: Iterator[tk.Token], next_tk: tk.Token):
                 ":label can't be assigned inside a block."
             )
         result.append(token_table(token.kind)(it, token))
+
+    return result
+
+def parse_dictionary(it: Iterator[tk.Token], next_tk: tk.Token):
+    result = {}
+    for token in it:
+        if token.kind == tk.Kind.CloseBlock:
+            break
+        if token.kind != tk.Kind.Label:
+            raise ValueError(
+                "Values inside :dictionary must be paired as [:label :any]"
+            )
+        
+        key = token.content[:-1]
+        result[key] = parse_label(it)
 
     return result
 
@@ -77,6 +92,7 @@ def token_table(kind: tk.Kind) -> Callable:
         tk.Kind.Char: parse_char,
         tk.Kind.Integer: parse_integer,
         tk.Kind.OpenBlock: parse_block,
+        tk.Kind.OpenDictBlock: parse_dictionary,
     }
 
     return table[kind]
