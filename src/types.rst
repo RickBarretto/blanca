@@ -14,6 +14,7 @@ Arturo Types            Python Types
 :label                  "key"
 :string (simple)        str
 :char                   str
+:block                  list
 ============            ============
                 
                 TODO
@@ -21,7 +22,6 @@ Arturo Types            Python Types
 
 Arturo Types            Python Types
 ============            ============
-:block                  list
 :literal                str
 :integer                int
 :floating               float
@@ -48,5 +48,5 @@ Arturo Types            Python Types
 Notes
 -----
 ``:label`` is translated to a ``dict``'s key.
-
+``:label`` is not supported inside ``:block``.
 
