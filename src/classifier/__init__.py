@@ -10,6 +10,7 @@ def classify(stream: str):
     for char in content_iter:
 
         is_comment_start = char == ";"
+        is_dict_start = char == "#"
         is_block_start = char == "["
         is_block_end = char == "]"
         is_smart_string_start = char == "«"
@@ -25,6 +26,11 @@ def classify(stream: str):
             comment = scanner.scan_until(content_iter, char, end="\n")
             yield tk.Token(comment, tk.Kind.Comment)
             continue
+
+        if is_dict_start:
+            _ = next(content_iter)
+            if content_iter.peek("") == "[":
+                yield tk.Token("#[", tk.Kind.OpenDictBlock)
 
         if is_block_start:
             yield tk.Token("[", tk.Kind.OpenBlock)
