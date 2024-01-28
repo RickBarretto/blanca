@@ -50,7 +50,7 @@ def classify(stream: str):
             continue
 
         if is_number_start:
-            number = scan(content_iter, char)
+            number = scanner.scan(content_iter, char)
             yield tk.Token(number, tk.Kind.Integer)
             continue
         
