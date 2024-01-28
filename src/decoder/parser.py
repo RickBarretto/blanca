@@ -34,6 +34,12 @@ def parse_word(it: Iterator[tk.Token], current_token: tk.Token):
 def parse_string(it: Iterator[tk.Token], current_token: tk.Token):
     return current_token.content[1:-1]
 
+def parse_integer(it: Iterator[tk.Token], current_token: tk.Token):
+    if current_token.content.isdigit():
+        return int(current_token.content)
+    
+    raise ValueError(":integer must only contain digits.")
+
 def parse_char(it: Iterator[tk.Token], current_token: tk.Token):
     content = current_token.content
 
@@ -69,6 +75,7 @@ def token_table(kind: tk.Kind) -> Callable:
         tk.Kind.Word: parse_word,
         tk.Kind.String: parse_string,
         tk.Kind.Char: parse_char,
+        tk.Kind.Integer: parse_integer,
         tk.Kind.OpenBlock: parse_block,
     }
 

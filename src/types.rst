@@ -14,6 +14,7 @@ Arturo Types            Python Types
 :label                  "key"
 :string (simple)        str
 :char                   str
+:integer                int
 :block                  list
 ============            ============
                 
@@ -23,7 +24,6 @@ Arturo Types            Python Types
 Arturo Types            Python Types
 ============            ============
 :literal                str
-:integer                int
 :floating               float
 :logical                bool
 :null                   None
