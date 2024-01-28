@@ -1,5 +1,5 @@
 
-from src import lexer
+from src import classifier
 from src import tokenizer as tk
 from src import parser
 
@@ -40,7 +40,7 @@ result = {
 }
 
 def test_basic_lexing():
-    for i, lexeme in enumerate(lexer.lex(sample)):
+    for i, lexeme in enumerate(classifier.lex(sample)):
         assert lexemes[i] == lexeme
 
 def test_basic_tokening():
