@@ -7,6 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+more-itertools = "^10.2.0"
 
 
 [tool.poetry.group.dev.dependencies]
