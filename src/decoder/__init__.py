@@ -2,7 +2,7 @@ from typing import Iterator
 
 from src.classifier import token as tk
 
-from . import _parser
+from . import parser
 
 def parse_tokens(it: Iterator[tk.Token]):
     for token in it:
@@ -10,7 +10,7 @@ def parse_tokens(it: Iterator[tk.Token]):
             continue
 
         if token.kind == tk.Kind.Label:
-            yield token.content[:-1], _parser.parse_label(it)
+            yield token.content[:-1], parser.parse_label(it)
 
 
 def decode(it):
