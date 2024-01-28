@@ -9,6 +9,7 @@ class Kind(enum.Enum):
     String = enum.auto()
     Char = enum.auto()
     Integer = enum.auto()
+    Floating = enum.auto()
     OpenBlock = enum.auto()
     CloseBlock = enum.auto()
     OpenDictBlock = enum.auto()
