@@ -16,6 +16,7 @@ Arturo Types            Python Types
 :char                   str
 :integer                int
 :block                  list
+:dictionary             dict
 ============            ============
                 
                 TODO
