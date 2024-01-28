@@ -1,29 +1,30 @@
 
 
 Convertion Table
-----------------
+================
 
 
-============            ============
+======================= =============== ====================================================
                 Doing
-------------------------------------
-
-Arturo Types            Python Types
-============            ============
-:word                   str
-:label                  "key"
-:string (simple)        str
-:char                   str
+--------------------------------------------------------------------------------------------
+Arturo Types            Python Types                         Notes
+======================= =============== ====================================================
+:word                   str             interpreted as a str
+:label                  ...             is a dict's key, always needs a r-value
+:string (simple)        str             
+:char                   str             chars in Python are intepreted as ``str``
 :integer                int
-:block                  list
-:dictionary             dict
-============            ============
+:block                  list            can't assign values
+:dictionary             dict            gets pairs of kind (:label :any)
+======================= =============== ====================================================
                 
+
+======================= ============
                 TODO
 ------------------------------------
 
 Arturo Types            Python Types
-============            ============
+======================= ============
 :literal                str
 :floating               float
 :logical                bool
@@ -43,11 +44,4 @@ Arturo Types            Python Types
 :bytecode               ...
 :attribute              ...
 :attributeLabel         ...
-============            ============
-
-
-Notes
------
-``:label`` is translated to a ``dict``'s key.
-``:label`` is not supported inside ``:block``.
-
+======================= ============
