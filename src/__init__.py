@@ -1,5 +1,5 @@
 from .import classifier
-from .import parser
+from .import decoder
 
 def load(content: str) -> dict:
-    return parser.decode(classifier.classify(content))
+    return decoder.decode(classifier.classify(content))

@@ -1,7 +1,7 @@
 
 from src import classifier
 from src.classifier import token as tk
-from src import parser
+from src import decoder
 
 
 sample = f"""
@@ -26,4 +26,4 @@ def test_basic_tokening():
         assert tokens[i] == token
 
 def test_basic_parsing():
-    assert result == parser.decode(iter(tokens))
+    assert result == decoder.decode(iter(tokens))
