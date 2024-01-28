@@ -1,9 +1,6 @@
-from dataclasses import dataclass
-from typing import Any, Callable, Generator, Iterable, Iterator
+from typing import Callable, Iterator
 
 from src.classifier import token as tk
-
-from . import node
 
 def parse_label(it: Iterator[tk.Token]):    
     try:
@@ -15,6 +12,20 @@ def parse_label(it: Iterator[tk.Token]):
         raise ValueError("You can't assing a Label with another label")
     
     return token_table(next_tk.kind)(it, next_tk)
+
+
+def parse_block(it: Iterator[tk.Token], next_tk: tk.Token):
+    result = []
+    for token in it:
+        if token.kind == tk.Kind.CloseBlock:
+            break
+        if token.kind == tk.Kind.Label:
+            raise ValueError(
+                ":label can't be assigned inside a block."
+            )
+        result.append(token_table(token.kind)(it, token))
+
+    return result
 
 
 def parse_word(it: Iterator[tk.Token], current_token: tk.Token):
@@ -58,6 +69,7 @@ def token_table(kind: tk.Kind) -> Callable:
         tk.Kind.Word: parse_word,
         tk.Kind.String: parse_string,
         tk.Kind.Char: parse_char,
+        tk.Kind.OpenBlock: parse_block,
     }
 
     return table[kind]

@@ -1,20 +1,29 @@
 from typing import Any, Iterator, Generator
 
+from more_itertools import peekable
+
 from . import token as tk
 
 IGNORABLE_TOKENS = " \n\t,"
+UNMIXABLE_TOKENS = "[](){}\""
 MIXABLE_SYMBOLS = ":.`-#"
 
-def scan(it: Iterator[str], current_char: str) -> str:
+def scan(it, current_char: str) -> str:
     lexeme = [current_char]
 
     for char in it:
         is_alphanum = char.isalpha() or char.isdigit()
         is_mixable = char in MIXABLE_SYMBOLS
 
-        if (not is_alphanum) and (not is_mixable):
+        if it.peek() in UNMIXABLE_TOKENS + IGNORABLE_TOKENS:
+            lexeme.append(char)
             break
-        lexeme.append(char)
+        
+        if is_alphanum or is_mixable:
+            lexeme.append(char)
+            continue
+
+        break
 
     return "".join(lexeme)
 
@@ -34,11 +43,13 @@ def scan_until(it: Iterator[str], start: str, end: str, include_end: bool = Fals
 
 
 def classify(stream: str):
-    content_iter = iter(stream)
+    content_iter = peekable(stream)
 
     for char in content_iter:
 
         is_comment_start = char == ";"
+        is_block_start = char == "["
+        is_block_end = char == "]"
         is_smart_string_start = char == "«"
         is_simple_string_start = char == "\""
         is_char_start = char == "'"
@@ -50,6 +61,14 @@ def classify(stream: str):
         if is_comment_start:
             comment = scan_until(content_iter, char, end="\n")
             yield tk.Token(comment, tk.Kind.Comment)
+            continue
+
+        if is_block_start:
+            yield tk.Token("[", tk.Kind.OpenBlock)
+            continue
+
+        if is_block_end:
+            yield tk.Token("]", tk.Kind.CloseBlock)
             continue
 
         if is_smart_string_start:
