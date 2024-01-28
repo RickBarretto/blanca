@@ -1,9 +1,6 @@
-from dataclasses import dataclass
-from typing import Any, Callable, Generator, Iterable, Iterator
+from typing import Callable, Iterator
 
 from src.classifier import token as tk
-
-from . import node
 
 def parse_label(it: Iterator[tk.Token]):    
     try:
