@@ -1,45 +1,7 @@
-from typing import Any, Iterator, Generator
-
 from more_itertools import peekable
 
 from . import token as tk
-
-IGNORABLE_TOKENS = " \n\t,"
-UNMIXABLE_TOKENS = "[](){}\""
-MIXABLE_SYMBOLS = ":.`-#"
-
-def scan(it, current_char: str) -> str:
-    lexeme = [current_char]
-
-    for char in it:
-        is_alphanum = char.isalpha() or char.isdigit()
-        is_mixable = char in MIXABLE_SYMBOLS
-
-        if it.peek() in UNMIXABLE_TOKENS + IGNORABLE_TOKENS:
-            lexeme.append(char)
-            break
-        
-        if is_alphanum or is_mixable:
-            lexeme.append(char)
-            continue
-
-        break
-
-    return "".join(lexeme)
-
-
-def scan_until(it: Iterator[str], start: str, end: str, include_end: bool = False) -> str:
-    lexeme = [start]
-
-    for char in it:
-        if char == end:
-            break
-        lexeme.append(char)
-
-    if include_end:
-        lexeme.append(end)
-
-    return "".join(lexeme)
+from . import scanner
 
 
 def classify(stream: str):
@@ -53,14 +15,14 @@ def classify(stream: str):
         is_smart_string_start = char == "«"
         is_simple_string_start = char == "\""
         is_char_start = char == "'"
-        is_ignorable = char in IGNORABLE_TOKENS
+        is_ignorable = char in scanner.IGNORABLE_TOKENS
         is_number_start = char.isdigit()
 
         if is_ignorable:
             continue
 
         if is_comment_start:
-            comment = scan_until(content_iter, char, end="\n")
+            comment = scanner.scan_until(content_iter, char, end="\n")
             yield tk.Token(comment, tk.Kind.Comment)
             continue
 
@@ -73,17 +35,17 @@ def classify(stream: str):
             continue
 
         if is_smart_string_start:
-            string = scan_until(content_iter, char, end="\n")
+            string = scanner.scan_until(content_iter, char, end="\n")
             yield tk.Token(string, tk.Kind.String)
             continue
 
         if is_simple_string_start:
-            string = scan_until(content_iter, char, end="\"", include_end=True)
+            string = scanner.scan_until(content_iter, char, end="\"", include_end=True)
             yield tk.Token(string, tk.Kind.String)
             continue
 
         if is_char_start:
-            _char = scan_until(content_iter, char, end="'", include_end=True)
+            _char = scanner.scan_until(content_iter, char, end="'", include_end=True)
             yield tk.Token(_char, tk.Kind.Char)
             continue
 
@@ -92,7 +54,7 @@ def classify(stream: str):
             yield tk.Token(number, tk.Kind.Integer)
             continue
         
-        if (word_or_label := scan(content_iter, char)).endswith(":"):
+        if (word_or_label := scanner.scan(content_iter, char)).endswith(":"):
             yield tk.Token(word_or_label, tk.Kind.Label)
         else:
             yield tk.Token(word_or_label, tk.Kind.Word)
