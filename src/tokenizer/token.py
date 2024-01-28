@@ -6,6 +6,7 @@ class Kind(enum.Enum):
     Word    = enum.auto()
     Label   = enum.auto()
     String  = enum.auto()
+    Char    = enum.auto()
 
 
 @dataclass

@@ -10,6 +10,8 @@ def tokenize(lexeme_stream: Iterable[str]):
             yield Token(lexeme, Kind.Label)
         elif lexeme.startswith("\"") and lexeme.endswith("\""):
             yield Token(lexeme, Kind.String)
+        elif lexeme.startswith("'") and lexeme.endswith("'"):
+            yield Token(lexeme, Kind.Char)
         else:
             yield Token(lexeme, Kind.Word)
         

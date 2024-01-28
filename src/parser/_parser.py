@@ -22,6 +22,34 @@ def parse_word(it: Iterator[tk.Token], current_token: tk.Token):
 
 def parse_string(it: Iterator[tk.Token], current_token: tk.Token):
     return current_token.content[1:-1]
+
+def parse_char(it: Iterator[tk.Token], current_token: tk.Token):
+    content = current_token.content
+
+    has_one_char = 3 == len(content)
+    has_two_char_representing_one = (4 == len(content)) and (content[1] == "\\")
+
+    if has_one_char:
+        return current_token.content[1:-1]
+
+    if has_two_char_representing_one:
+        convertion = {
+            "\\n": "\n",
+            "\\t": "\t",
+            "\\r": "\r",
+            "\\f": "\f",
+            "\\a": "\a",
+            "\\b": "\b",
+            "\\v": "\v",
+        }
+        char = current_token.content[1:-1]
+        try:
+            return convertion[char]
+        except KeyError:
+            return char
+                                          
+    raise ValueError("A :char should contain only one character.")
+
     
 
 def token_table(kind: tk.Kind) -> Callable:
@@ -29,6 +57,7 @@ def token_table(kind: tk.Kind) -> Callable:
         tk.Kind.Label: parse_label,
         tk.Kind.Word: parse_word,
         tk.Kind.String: parse_string,
+        tk.Kind.Char: parse_char,
     }
 
     return table[kind]

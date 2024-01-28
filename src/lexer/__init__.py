@@ -39,6 +39,7 @@ def lex(stream: str) -> Generator[str, Any, None]:
         is_comment_start = char == ";"
         is_smart_string_start = char == "«"
         is_simple_string_start = char == "\""
+        is_char_start = char == "'"
         is_ignorable = char in IGNORABLE_TOKENS
 
 
@@ -48,6 +49,8 @@ def lex(stream: str) -> Generator[str, Any, None]:
             yield spaced_scan(content_iter, char, end="\n")
         elif is_simple_string_start:
             yield spaced_scan(content_iter, char, end="\"", include_end=True)
+        elif is_char_start:
+            yield spaced_scan(content_iter, char, end="'", include_end=True)
         elif is_ignorable:
             continue
         else:
