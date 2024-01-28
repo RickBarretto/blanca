@@ -28,9 +28,11 @@ def classify(stream: str):
             continue
 
         if is_dict_start:
-            _ = next(content_iter)
             if content_iter.peek("") == "[":
+                _ = next(content_iter)
                 yield tk.Token("#[", tk.Kind.OpenDictBlock)
+                continue
+            continue
 
         if is_block_start:
             yield tk.Token("[", tk.Kind.OpenBlock)
