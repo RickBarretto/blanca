@@ -5,7 +5,7 @@ from . import token as tk
 IGNORABLE_TOKENS = " \n\t,"
 MIXABLE_SYMBOLS = ":.`-#"
 
-def default_scan(it: Iterator[str], current_char: str) -> str:
+def scan(it: Iterator[str], current_char: str) -> str:
     lexeme = [current_char]
 
     for char in it:
@@ -67,7 +67,7 @@ def lex(stream: str):
             yield tk.Token(_char, tk.Kind.Char)
             continue
         
-        if (word_or_label := default_scan(content_iter, char)).endswith(":"):
+        if (word_or_label := scan(content_iter, char)).endswith(":"):
             yield tk.Token(word_or_label, tk.Kind.Label)
         else:
             yield tk.Token(word_or_label, tk.Kind.Word)
