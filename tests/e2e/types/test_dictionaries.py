@@ -24,6 +24,21 @@ def test_separation_between_dict_block_and_label():
 
     assert result == src.load("testing: #[key: value]")
 
+def test_empty_dict():
+    result = { "empty": {}}
+    assert result == src.load("empty: #[]")
+
+def test_nested_dict():
+    result = {
+        "surface": {"level1": {"level2": {}}}
+    }
+
+    assert result == src.load(
+        """
+        surface: #[level1: #[level2: #[]]]
+        """
+    )
+
 
 def test_missing_label_inside_dict_block_raising_valueerror():
     with pytest.raises(ValueError) as err:
