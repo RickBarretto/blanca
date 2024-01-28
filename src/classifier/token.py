@@ -7,6 +7,8 @@ class Kind(enum.Enum):
     Label   = enum.auto()
     String  = enum.auto()
     Char    = enum.auto()
+    OpenBlock = enum.auto()
+    CloseBlock = enum.auto()
 
 
 @dataclass
