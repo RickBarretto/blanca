@@ -62,6 +62,18 @@ def parse_integer(it: Iterator[tk.Token], current_token: tk.Token):
     raise ValueError(":integer must only contain digits.")
 
 
+def parse_floating(it: Iterator[tk.Token], current_token: tk.Token):
+    for ch in current_token.content:
+        if ch.isdigit():
+            continue
+        if ch == ".":
+            continue
+
+        raise ValueError(":floating must only contain digits and one dot.")
+
+    return float(current_token.content)
+
+
 def parse_char(it: Iterator[tk.Token], current_token: tk.Token):
     content = current_token.content
 
@@ -97,6 +109,7 @@ def token_table(kind: tk.Kind) -> Callable:
         tk.Kind.String: parse_string,
         tk.Kind.Char: parse_char,
         tk.Kind.Integer: parse_integer,
+        tk.Kind.Floating: parse_floating,
         tk.Kind.OpenBlock: parse_block,
         tk.Kind.OpenDictBlock: parse_dictionary,
     }
