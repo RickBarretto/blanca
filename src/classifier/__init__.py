@@ -19,7 +19,7 @@ def scan(it: Iterator[str], current_char: str) -> str:
     return "".join(lexeme)
 
 
-def spaced_scan(it: Iterator[str], start: str, end: str, include_end: bool = False) -> str:
+def scan_until(it: Iterator[str], start: str, end: str, include_end: bool = False) -> str:
     lexeme = [start]
 
     for char in it:
@@ -48,22 +48,22 @@ def lex(stream: str):
             continue
 
         if is_comment_start:
-            comment = spaced_scan(content_iter, char, end="\n")
+            comment = scan_until(content_iter, char, end="\n")
             yield tk.Token(comment, tk.Kind.Comment)
             continue
 
         if is_smart_string_start:
-            string = spaced_scan(content_iter, char, end="\n")
+            string = scan_until(content_iter, char, end="\n")
             yield tk.Token(string, tk.Kind.String)
             continue
 
         if is_simple_string_start:
-            string = spaced_scan(content_iter, char, end="\"", include_end=True)
+            string = scan_until(content_iter, char, end="\"", include_end=True)
             yield tk.Token(string, tk.Kind.String)
             continue
 
         if is_char_start:
-            _char = spaced_scan(content_iter, char, end="'", include_end=True)
+            _char = scan_until(content_iter, char, end="'", include_end=True)
             yield tk.Token(_char, tk.Kind.Char)
             continue
         
