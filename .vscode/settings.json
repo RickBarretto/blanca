@@ -2,8 +2,11 @@
     "python.analysis.typeCheckingMode": "basic",
     "esbonio.sphinx.confDir": "",
     "python.testing.pytestArgs": [
-        "tests"
+        "tests",
+        "--import-mode", "importlib"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+
+    "python.testing.autoTestDiscoverOnSaveEnabled": true,
 }
