@@ -1,4 +1,4 @@
-from typing import Any, Callable, Iterator
+from typing import Callable, Iterator
 
 from src.classifier import token as tk
 

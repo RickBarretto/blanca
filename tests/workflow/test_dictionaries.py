@@ -3,7 +3,7 @@ from src.classifier import token as tk
 from src import decoder
 
 
-sample = f"""
+sample = """
 extensions: #[
     arturo: art
     python: py
