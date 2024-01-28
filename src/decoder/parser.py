@@ -52,8 +52,12 @@ def parse_string(it: Iterator[tk.Token], current_token: tk.Token):
 
 
 def parse_integer(it: Iterator[tk.Token], current_token: tk.Token):
-    if current_token.content.isdigit():
-        return int(current_token.content)
+    # Ignores the dot at the end
+    content = current_token.content
+    integer = content[:-1] if content.endswith(".") else content
+    
+    if integer.isdigit():
+        return int(integer)
 
     raise ValueError(":integer must only contain digits.")
 
