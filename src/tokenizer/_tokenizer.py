@@ -1,5 +1,5 @@
 from typing import Iterable
-from .token import Token, Kind
+from ..classifier.token import Token, Kind
 
 def tokenize(lexeme_stream: Iterable[str]):
 
