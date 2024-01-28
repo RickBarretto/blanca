@@ -20,7 +20,7 @@ def test_dict_with_words():
 def test_separation_between_dict_block_and_label():
     result = {"testing": {"key": "value"}}
 
-    assert result == src.load("testing: [key: value]")
+    assert result == src.load("testing: #[key: value]")
 
 
 def test_missing_label_inside_dict_block_raising_valueerror():
