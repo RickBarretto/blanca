@@ -2,7 +2,8 @@ from typing import Any, Callable, Iterator
 
 from src.classifier import token as tk
 
-def parse_label(it: Iterator[tk.Token]):    
+
+def parse_label(it: Iterator[tk.Token]):
     try:
         next_tk = next(it)
     except StopIteration:
@@ -10,7 +11,7 @@ def parse_label(it: Iterator[tk.Token]):
 
     if next_tk.kind == tk.Kind.Label:
         raise ValueError("You can't assing a Label with another label")
-    
+
     return token_table(next_tk.kind)(it, next_tk)
 
 
@@ -20,12 +21,11 @@ def parse_block(it: Iterator[tk.Token], next_tk: tk.Token):
         if token.kind == tk.Kind.CloseBlock:
             break
         if token.kind == tk.Kind.Label:
-            raise ValueError(
-                ":label can't be assigned inside a block."
-            )
+            raise ValueError(":label can't be assigned inside a block.")
         result.append(token_table(token.kind)(it, token))
 
     return result
+
 
 def parse_dictionary(it: Iterator[tk.Token], next_tk: tk.Token):
     result = {}
@@ -36,7 +36,7 @@ def parse_dictionary(it: Iterator[tk.Token], next_tk: tk.Token):
             raise ValueError(
                 "Values inside :dictionary must be paired as [:label :any]"
             )
-        
+
         key = token.content[:-1]
         result[key] = parse_label(it)
 
@@ -46,14 +46,17 @@ def parse_dictionary(it: Iterator[tk.Token], next_tk: tk.Token):
 def parse_word(it: Iterator[tk.Token], current_token: tk.Token):
     return current_token.content
 
+
 def parse_string(it: Iterator[tk.Token], current_token: tk.Token):
     return current_token.content[1:-1]
+
 
 def parse_integer(it: Iterator[tk.Token], current_token: tk.Token):
     if current_token.content.isdigit():
         return int(current_token.content)
-    
+
     raise ValueError(":integer must only contain digits.")
+
 
 def parse_char(it: Iterator[tk.Token], current_token: tk.Token):
     content = current_token.content
@@ -79,10 +82,9 @@ def parse_char(it: Iterator[tk.Token], current_token: tk.Token):
             return convertion[char]
         except KeyError:
             return char
-                                          
+
     raise ValueError("A :char should contain only one character.")
 
-    
 
 def token_table(kind: tk.Kind) -> Callable:
     table = {

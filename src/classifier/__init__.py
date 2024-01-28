@@ -8,13 +8,12 @@ def classify(stream: str):
     content_iter = peekable(stream)
 
     for char in content_iter:
-
         is_comment_start = char == ";"
         is_dict_start = char == "#"
         is_block_start = char == "["
         is_block_end = char == "]"
         is_smart_string_start = char == "«"
-        is_simple_string_start = char == "\""
+        is_simple_string_start = char == '"'
         is_char_start = char == "'"
         is_ignorable = char in scanner.IGNORABLE_TOKENS
         is_number_start = char.isdigit()
@@ -48,7 +47,7 @@ def classify(stream: str):
             continue
 
         if is_simple_string_start:
-            string = scanner.scan_until(content_iter, char, end="\"", include_end=True)
+            string = scanner.scan_until(content_iter, char, end='"', include_end=True)
             yield tk.Token(string, tk.Kind.String)
             continue
 
@@ -61,7 +60,7 @@ def classify(stream: str):
             number = scanner.scan(content_iter, char)
             yield tk.Token(number, tk.Kind.Integer)
             continue
-        
+
         if (word_or_label := scanner.scan(content_iter, char)).endswith(":"):
             yield tk.Token(word_or_label, tk.Kind.Label)
         else:

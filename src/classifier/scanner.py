@@ -1,8 +1,9 @@
 from typing import Iterator
 
 IGNORABLE_TOKENS = " \n\t,"
-UNMIXABLE_TOKENS = "[](){}\""
+UNMIXABLE_TOKENS = '[](){}"'
 MIXABLE_SYMBOLS = ":.`-#"
+
 
 def scan(it, current_char: str) -> str:
     lexeme = [current_char]
@@ -14,7 +15,7 @@ def scan(it, current_char: str) -> str:
         if it.peek(" ") in UNMIXABLE_TOKENS + IGNORABLE_TOKENS:
             lexeme.append(char)
             break
-        
+
         if is_alphanum or is_mixable:
             lexeme.append(char)
             continue
@@ -24,7 +25,9 @@ def scan(it, current_char: str) -> str:
     return "".join(lexeme)
 
 
-def scan_until(it: Iterator[str], start: str, end: str, include_end: bool = False) -> str:
+def scan_until(
+    it: Iterator[str], start: str, end: str, include_end: bool = False
+) -> str:
     lexeme = [start]
 
     for char in it:

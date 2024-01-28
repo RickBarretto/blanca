@@ -2,12 +2,13 @@ import pytest
 
 import src
 
+
 def test_dict_with_words():
     result = {
         "languages": {
             "compiled": ["c", "cpp", "rust"],
-            "interpreted": ["arturo", "python"]
-        } 
+            "interpreted": ["arturo", "python"],
+        }
     }
 
     assert result == src.load(
@@ -19,19 +20,20 @@ def test_dict_with_words():
         """
     )
 
+
 def test_separation_between_dict_block_and_label():
     result = {"testing": {"key": "value"}}
 
     assert result == src.load("testing: #[key: value]")
 
+
 def test_empty_dict():
-    result = { "empty": {}}
+    result = {"empty": {}}
     assert result == src.load("empty: #[]")
 
+
 def test_nested_dict():
-    result = {
-        "surface": {"level1": {"level2": {}}}
-    }
+    result = {"surface": {"level1": {"level2": {}}}}
 
     assert result == src.load(
         """

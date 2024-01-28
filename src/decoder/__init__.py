@@ -4,6 +4,7 @@ from src.classifier import token as tk
 
 from . import parser
 
+
 def parse_tokens(it: Iterator[tk.Token]):
     for token in it:
         if token.kind == tk.Kind.Comment:
