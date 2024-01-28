@@ -11,7 +11,7 @@ def scan(it, current_char: str) -> str:
         is_alphanum = char.isalpha() or char.isdigit()
         is_mixable = char in MIXABLE_SYMBOLS
 
-        if it.peek() in UNMIXABLE_TOKENS + IGNORABLE_TOKENS:
+        if it.peek(" ") in UNMIXABLE_TOKENS + IGNORABLE_TOKENS:
             lexeme.append(char)
             break
         
