@@ -13,7 +13,7 @@ extensions: #[
 ]
 
 languages: #[
-    compiled: [cpp c nim rust]
+    compiled: [c nim rust]
 ]
 
 blanca: #[
@@ -28,11 +28,11 @@ blanca: #[
 tokens = [
     tk.Token("extensions:", tk.Kind.Label),
     tk.Token("#[", tk.Kind.OpenDictBlock),
-    tk.Token("arturo", tk.Kind.Label),
+    tk.Token("arturo:", tk.Kind.Label),
     tk.Token("art", tk.Kind.Word),
-    tk.Token("python", tk.Kind.Label),
+    tk.Token("python:", tk.Kind.Label),
     tk.Token("py", tk.Kind.Word),
-    tk.Token("ruby", tk.Kind.Label),
+    tk.Token("ruby:", tk.Kind.Label),
     tk.Token("rb", tk.Kind.Word),
     tk.Token("]", tk.Kind.CloseBlock),
 
@@ -44,15 +44,19 @@ tokens = [
     tk.Token("nim", tk.Kind.Word),
     tk.Token("rust", tk.Kind.Word),
     tk.Token("]", tk.Kind.CloseBlock),
+    tk.Token("]", tk.Kind.CloseBlock),
     
     tk.Token("blanca:", tk.Kind.Label),
     tk.Token("#[", tk.Kind.OpenDictBlock),
+
     tk.Token("repository:", tk.Kind.Label),
+    tk.Token("#[", tk.Kind.OpenDictBlock),
     tk.Token("author:", tk.Kind.Label),
-    tk.Token("RickBarretto", tk.Kind.String),
+    tk.Token("\"RickBarretto\"", tk.Kind.String),
     tk.Token("firstCommit:", tk.Kind.Label),
     tk.Token("2024", tk.Kind.Integer),
-    tk.Token("#[", tk.Kind.OpenDictBlock),
+    tk.Token("]", tk.Kind.CloseBlock),
+    
     tk.Token("]", tk.Kind.CloseBlock),
 
 ]
@@ -65,7 +69,7 @@ result = {
     },
     
     "languages": {
-        "compiled": ["cpp", "c", "nim", "rust"]
+        "compiled": ["c", "nim", "rust"]
     },
 
     "blanca": {
