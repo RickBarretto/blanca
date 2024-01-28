@@ -48,5 +48,5 @@ Arturo Types            Python Types
 Notes
 -----
 ``:label`` is translated to a ``dict``'s key.
-
+``:label`` is not supported inside ``:block``.
 
