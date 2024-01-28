@@ -10,6 +10,7 @@ class Kind(enum.Enum):
     Integer = enum.auto()
     OpenBlock   = enum.auto()
     CloseBlock  = enum.auto()
+    OpenDictionary  = enum.auto()
 
 
 @dataclass
