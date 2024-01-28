@@ -32,7 +32,7 @@ result = {
 }
 
 def test_basic_tokening():
-    for i, token in enumerate(classifier.lex(sample)):
+    for i, token in enumerate(classifier.classify(sample)):
         assert tokens[i] == token
 
 def test_basic_parsing():

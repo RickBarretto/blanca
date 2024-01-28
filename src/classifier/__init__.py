@@ -33,7 +33,7 @@ def scan_until(it: Iterator[str], start: str, end: str, include_end: bool = Fals
     return "".join(lexeme)
 
 
-def lex(stream: str):
+def classify(stream: str):
     content_iter = iter(stream)
 
     for char in content_iter:
