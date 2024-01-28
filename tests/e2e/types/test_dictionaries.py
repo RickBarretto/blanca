@@ -12,8 +12,10 @@ def test_dict_with_words():
 
     assert result == src.load(
         """
-        languages: #[ compiled: [c cpp rust]
-            interpreted: [arturo python ruby] ]                      
+        languages: #[ 
+            compiled: [c cpp rust]
+            interpreted: [arturo python] 
+        ]                      
         """
     )
 
