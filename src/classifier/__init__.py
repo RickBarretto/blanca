@@ -1,5 +1,7 @@
 from typing import Any, Iterator, Generator
 
+from . import token as tk
+
 IGNORABLE_TOKENS = " \n\t,"
 MIXABLE_SYMBOLS = ":.`-#"
 
@@ -31,7 +33,7 @@ def spaced_scan(it: Iterator[str], start: str, end: str, include_end: bool = Fal
     return "".join(lexeme)
 
 
-def lex(stream: str) -> Generator[str, Any, None]:
+def lex(stream: str):
     content_iter = iter(stream)
 
     for char in content_iter:
@@ -42,16 +44,30 @@ def lex(stream: str) -> Generator[str, Any, None]:
         is_char_start = char == "'"
         is_ignorable = char in IGNORABLE_TOKENS
 
+        if is_ignorable:
+            continue
 
         if is_comment_start:
-            yield spaced_scan(content_iter, char, end="\n")
-        elif is_smart_string_start:
-            yield spaced_scan(content_iter, char, end="\n")
-        elif is_simple_string_start:
-            yield spaced_scan(content_iter, char, end="\"", include_end=True)
-        elif is_char_start:
-            yield spaced_scan(content_iter, char, end="'", include_end=True)
-        elif is_ignorable:
+            comment = spaced_scan(content_iter, char, end="\n")
+            yield tk.Token(comment, tk.Kind.Comment)
             continue
+
+        if is_smart_string_start:
+            string = spaced_scan(content_iter, char, end="\n")
+            yield tk.Token(string, tk.Kind.String)
+            continue
+
+        if is_simple_string_start:
+            string = spaced_scan(content_iter, char, end="\"", include_end=True)
+            yield tk.Token(string, tk.Kind.String)
+            continue
+
+        if is_char_start:
+            _char = spaced_scan(content_iter, char, end="'", include_end=True)
+            yield tk.Token(_char, tk.Kind.Char)
+            continue
+        
+        if (word_or_label := default_scan(content_iter, char)).endswith(":"):
+            yield tk.Token(word_or_label, tk.Kind.Label)
         else:
-            yield default_scan(content_iter, char)
+            yield tk.Token(word_or_label, tk.Kind.Word)

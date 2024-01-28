@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any, Callable, Generator, Iterable, Iterator
 
-from src import tokenizer as tk
+from src.classifier import token as tk
 
 from . import node
 

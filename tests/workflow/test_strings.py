@@ -1,6 +1,6 @@
 
 from src import classifier
-from src import tokenizer as tk
+from src.classifier import token as tk
 from src import parser
 
 
@@ -11,14 +11,6 @@ to: "Python"
 ext1: "art"
 ext2: "py"
 """
-
-lexemes = [
-    "from:", "\"Arturo\"",
-    "; from: \"Arturo\"",
-    "to:", "\"Python\"",
-    "ext1:", "\"art\"",
-    "ext2:", "\"py\"" 
-]
 
 tokens = [
     tk.Token("from:",               tk.Kind.Label),
@@ -39,12 +31,8 @@ result = {
     "ext2": "py",
 }
 
-def test_basic_lexing():
-    for i, lexeme in enumerate(classifier.lex(sample)):
-        assert lexemes[i] == lexeme
-
 def test_basic_tokening():
-    for i, token in enumerate(tk.tokenize(iter(lexemes))):
+    for i, token in enumerate(classifier.lex(sample)):
         assert tokens[i] == token
 
 def test_basic_parsing():
