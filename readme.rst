@@ -11,7 +11,7 @@ Convertion Table
 ======================= =============== ====================================================
         ``:word``          ``str``      interpreted as a str
         ``:label``                      is a ``dict``'s key, always needs a r-value
-    ``:string`` (simple)   ``str``             
+  ``:string`` (simple)     ``str``             
         ``:char``          ``str``      chars in Python are intepreted as ``str``
        ``:integer``        ``int``
       ``:floating``        ``float``    ``d.`` is an ``:integer``
