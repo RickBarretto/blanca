@@ -54,6 +54,7 @@ def classify(stream: str):
         is_simple_string_start = char == "\""
         is_char_start = char == "'"
         is_ignorable = char in IGNORABLE_TOKENS
+        is_number_start = char.isdigit()
 
         if is_ignorable:
             continue
@@ -84,6 +85,11 @@ def classify(stream: str):
         if is_char_start:
             _char = scan_until(content_iter, char, end="'", include_end=True)
             yield tk.Token(_char, tk.Kind.Char)
+            continue
+
+        if is_number_start:
+            number = scan(content_iter, char)
+            yield tk.Token(number, tk.Kind.Integer)
             continue
         
         if (word_or_label := scan(content_iter, char)).endswith(":"):
