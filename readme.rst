@@ -4,21 +4,22 @@ Convertion Table
 ================
 
 
-======================= =============== ====================================================
+======================= =================== ====================================================
                     Doing
 --------------------------------------------------------------------------------------------
      Arturo Types        Python Types                         Notes
-======================= =============== ====================================================
-        ``:word``          ``str``      interpreted as a str
-        ``:label``                      is a ``dict``'s key, always needs a r-value
+======================= =================== ====================================================
+        ``:word``          ``str``          interpreted as a str
+        ``:label``                          is a ``dict``'s key, always needs a r-value
   ``:string`` (simple)     ``str``             
-        ``:char``          ``str``      chars in Python are intepreted as ``str``
+        ``:char``          ``str``          chars in Python are intepreted as ``str``
        ``:integer``        ``int``
-      ``:floating``        ``float``    ``d.`` is an ``:integer``
+      ``:floating``        ``float``        ``d.`` is an ``:integer``
+      ``:rational``     ``tuple[int, int]``
         ``:color``         ``str``
-        ``:block``         ``list``     can't assign values
-     ``:dictionary``       ``dict``     gets pairs of kind (:label :any)
-======================= =============== ====================================================
+        ``:block``         ``list``         can't assign values
+     ``:dictionary``       ``dict``         gets pairs of kind (:label :any)
+======================= =================== ====================================================
                 
 
 ======================= ============
@@ -34,7 +35,6 @@ Arturo Types            Python Types
 :pathLabel              ...
 :symbols                ...
 :complex                ...
-:rational               tuple[int, int]
 :type                   str
 :regex                  str
 :inline                 list
