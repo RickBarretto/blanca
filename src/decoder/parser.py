@@ -1,4 +1,6 @@
 from typing import Callable, Iterator
+import importlib
+import string
 
 from src.classifier import token as tk
 
@@ -73,6 +75,27 @@ def parse_floating(it: Iterator[tk.Token], current_token: tk.Token):
 
     return float(current_token.content)
 
+def parse_color(it: Iterator[tk.Token], current_token: tk.Token):
+    colors = importlib.import_module("src.decoder.colors")
+    error_msg = f"Unknown color: {current_token.content}"
+
+    def remove_case(color: str):
+        return color.replace("-", "").replace("_", "").lower()
+
+    color = remove_case(current_token.content)
+
+    if color[1:] in colors.color_names:
+        return color[1:]
+    
+    if len(color) not in (4, 7):
+        raise ValueError(error_msg)
+
+    for digit in color[1:]:
+        if digit not in string.hexdigits:
+            raise ValueError(error_msg)
+
+    return color.lower()
+
 
 def parse_char(it: Iterator[tk.Token], current_token: tk.Token):
     content = current_token.content
@@ -110,6 +133,7 @@ def token_table(kind: tk.Kind) -> Callable:
         tk.Kind.Char: parse_char,
         tk.Kind.Integer: parse_integer,
         tk.Kind.Floating: parse_floating,
+        tk.Kind.Color: parse_color,
         tk.Kind.OpenBlock: parse_block,
         tk.Kind.OpenDictBlock: parse_dictionary,
     }
