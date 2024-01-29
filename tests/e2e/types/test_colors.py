@@ -9,9 +9,9 @@ def test_simple_named_color():
 
 def test_invalid_named_color():
     with pytest.raises(ValueError) as err:
-        src.load("color: #red")
+        src.load("color: #redd")
 
-    assert "Unknown color: #redd}" == str(err.value)
+    assert "Unknown color: #redd" == str(err.value)
 
 
 def test_differents_cases_for_named_colors():
