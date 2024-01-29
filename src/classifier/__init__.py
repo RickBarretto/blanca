@@ -61,6 +61,13 @@ def classify(stream: str):
         if is_number_start:
             number = scanner.scan(content_iter, char)
             dots = number.count(".")
+            rational_sep = number.count(":")
+
+            if rational_sep == 1:
+                yield tk.Token(number, tk.Kind.Rational)
+                continue
+            elif rational_sep:
+                raise ValueError(f"Syntax error, {number} is not a valid rational.")
 
             if dots > 1:
                 raise ValueError(f"Syntax error, {number} is not a valid number.")
