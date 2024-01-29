@@ -11,6 +11,7 @@ class Kind(enum.Enum):
     Integer = enum.auto()
     Floating = enum.auto()
     Rational = enum.auto()
+    Logical = enum.auto()
     Color = enum.auto()
     OpenBlock = enum.auto()
     CloseBlock = enum.auto()
