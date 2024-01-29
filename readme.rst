@@ -15,7 +15,8 @@ Convertion Table
 ``:char``                ``str``        chars in Python are intepreted as ``str``
 ``:integer``             ``int``
 ``:floating``            ``float``      ``d.`` is an ``:integer``
-``:rational``            ``(int, int)``  
+``:rational``            ``(int, int)``
+``:logical``             ``bool``       Supported via macros: '!true', '!false' and '!maybe'
 ``:color``               ``str``
 ``:block``               ``list``       can't assign values
 ``:dictionary``          ``dict``       gets pairs of kind (:label :any)
@@ -29,7 +30,6 @@ Convertion Table
 Arturo Types            Python Types
 ======================= ============
 :literal                str
-:logical                bool
 :null                   None
 :path                   list[str]
 :pathLabel              ...
