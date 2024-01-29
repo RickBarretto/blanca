@@ -2,7 +2,7 @@ from typing import Iterator
 
 IGNORABLE_TOKENS = " \n\t,"
 UNMIXABLE_TOKENS = '[](){}"'
-MIXABLE_SYMBOLS = ":.`-#_"
+MIXABLE_SYMBOLS = ":.`-#_?"
 
 
 def scan(it, current_char: str) -> str:

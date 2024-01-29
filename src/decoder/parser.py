@@ -87,6 +87,15 @@ def parse_rational(it: Iterator[tk.Token], current_token: tk.Token):
     den, num = current_token.content.split(":")
     return int(den), int(num)
 
+def parse_logical(it: Iterator[tk.Token], current_token: tk.Token):
+    if current_token.content == "!true":
+        return True
+    
+    if current_token.content in ("!false", "!maybe"):
+        return False
+    
+    raise ValueError(f"Unknown :logical type: {current_token.content}")
+
 def parse_color(it: Iterator[tk.Token], current_token: tk.Token):
     colors = importlib.import_module("src.decoder.colors")
     error_msg = f"Unknown color: {current_token.content}"
@@ -146,6 +155,7 @@ def token_table(kind: tk.Kind) -> Callable:
         tk.Kind.Integer: parse_integer,
         tk.Kind.Floating: parse_floating,
         tk.Kind.Rational: parse_rational,
+        tk.Kind.Logical: parse_logical,
         tk.Kind.Color: parse_color,
         tk.Kind.OpenBlock: parse_block,
         tk.Kind.OpenDictBlock: parse_dictionary,

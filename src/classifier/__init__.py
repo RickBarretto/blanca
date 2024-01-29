@@ -9,6 +9,7 @@ def classify(stream: str):
 
     for char in content_iter:
         is_comment_start = char == ";"
+        is_macro_start = char == "!"
         is_dict_or_color_start = char == "#"
         is_block_start = char == "["
         is_block_end = char == "]"
@@ -25,6 +26,15 @@ def classify(stream: str):
             comment = scanner.scan_until(content_iter, char, end="\n")
             yield tk.Token(comment, tk.Kind.Comment)
             continue
+
+        if is_macro_start:
+            keyword = scanner.scan(content_iter, char)
+
+            if keyword in {"!true", "!false", "!maybe"}:
+                yield tk.Token(keyword, tk.Kind.Logical)
+                continue
+            else:
+                raise ValueError("Macro should be suceeded by a valid keyword.")
 
         if is_dict_or_color_start:
             if content_iter.peek("") == "[":
