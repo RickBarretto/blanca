@@ -30,7 +30,7 @@ def classify(stream: str):
             if content_iter.peek("") == "[":
                 _ = next(content_iter)
                 yield tk.Token("#[", tk.Kind.OpenDictBlock)
-                continue
+            
             continue
 
         if is_block_start:
