@@ -15,7 +15,7 @@ Convertion Table
 ``:char``                ``str``        chars in Python are intepreted as ``str``
 ``:integer``             ``int``
 ``:floating``            ``float``      ``d.`` is an ``:integer``
-``:rational``            ``(int, int``  
+``:rational``            ``(int, int)``  
 ``:color``               ``str``
 ``:block``               ``list``       can't assign values
 ``:dictionary``          ``dict``       gets pairs of kind (:label :any)
