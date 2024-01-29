@@ -9,4 +9,4 @@ def test_possible_logical_values():
 def test_bool_keywords_without_macro():
     assert {"im-not-a-bool": "true"}  == src.load("im-not-a-bool: true")
     assert {"im-not-a-bool": "false"} == src.load("im-not-a-bool: false")
-    assert {"im-not-a-bool": "false"} == src.load("im-not-a-bool: maybe")
+    assert {"im-not-a-bool": "maybe"} == src.load("im-not-a-bool: maybe")
