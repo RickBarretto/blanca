@@ -10,9 +10,9 @@ rat2: 1:4
 
 tokens = [
     tk.Token("rat:", tk.Kind.Label),
-    tk.Token("3:5", tk.Kind.Integer),
+    tk.Token("3:5", tk.Kind.Rational),
     tk.Token("rat2:", tk.Kind.Label),
-    tk.Token("1:4", tk.Kind.Integer),
+    tk.Token("1:4", tk.Kind.Rational),
 ]
 
 result = {
